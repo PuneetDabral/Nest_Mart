@@ -1,4 +1,5 @@
 const Product = require('../models/ProductModel.js');
+const ErrorHandler = require('../utils/ErrorHandler.js');
 
 //create product 
 exports.createProduct = async(req, res,next) => {
@@ -21,14 +22,11 @@ exports.getAllProdcuts =async(req,res)=>{
 }
 
 //update product admin
-exports.updateProduct = async(req,res)=>{
+exports.updateProduct = async(req,res,next)=>{
     let product = await Product.findById(req.params.id);
 
     if(!product){
-        return res.status(500).json({
-            success:false,
-            message:'product  is not found with this id'
-        })
+        return next(new ErrorHandler('product is not found with this id',404));
     }
 
     product = await Product.findByIdAndUpdate(req.params.id,req.body,{
@@ -45,14 +43,11 @@ exports.updateProduct = async(req,res)=>{
 }
 
 //delete product
-exports.deleteProduct = async(req,res)=>{
+exports.deleteProduct = async(req,res,next)=>{
     const product = await Product.findById(req.params.id);
 
     if(!product){
-        return res.status(500).json({
-            success:false,
-            message:'product  is not found with this id'
-        })
+        return next(new ErrorHandler('product is not found with this id',404));
 
     }
 
@@ -65,15 +60,16 @@ exports.deleteProduct = async(req,res)=>{
 }
 
 //get single product details
-exports.getSingleProduct = async(req,res)=>{
+exports.getSingleProduct = async(req,res,next)=>{
 
     const product = await Product.findById(req.params.id);
     
     if(!product){
-        return res.status(500).json({
-            success:false,
-            message:'product  is not found with this id'
-        })
+        // return res.status(500).json({
+        //     success:false,
+        //     message:'product  is not found with this id'
+        // })
+        return next(new ErrorHandler('product is not found with this id',404));
     }
 
     res.status(200).json({
