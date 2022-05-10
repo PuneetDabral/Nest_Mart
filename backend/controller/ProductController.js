@@ -15,7 +15,7 @@ exports.createProduct = catchAsyncErrors(async(req, res,next) => {
 
 //get app products
 exports.getAllProdcuts =catchAsyncErrors(async(req,res)=>{
-    const feature = new Features(Product.find(), req.query).search()
+    const feature = new Features(Product.find(), req.query).search().filter()    //search  and filter is a product cantroller
     const products = await feature.query;
     res.status(200).json({
         success:true,
