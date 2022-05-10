@@ -15,11 +15,20 @@ exports.createProduct = catchAsyncErrors(async(req, res,next) => {
 
 //get app products
 exports.getAllProdcuts =catchAsyncErrors(async(req,res)=>{
-    const feature = new Features(Product.find(), req.query).search().filter()    //search  and filter is a product cantroller
+
+    const resultPerPage = 8;
+    const productCount = await Product.countDocuments();
+
+
+    const feature = new Features(Product.find(), req.query)
+    .search()
+    .filter()    //search  and filter is a product cantroller
+    .pagination(resultPerPage)
     const products = await feature.query;
     res.status(200).json({
         success:true,
-        products
+        products,
+        resultPerPage
     })
   
 })
@@ -78,7 +87,8 @@ exports.getSingleProduct =catchAsyncErrors(async(req,res,next)=>{
     res.status(200).json({
         success:true,
         message:'product is found',
-        product     
+        product,
+        productCount     
 
     })
     

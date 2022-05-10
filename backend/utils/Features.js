@@ -39,6 +39,8 @@ class Features {
         const currentPage = Number(this.queryStr.page) || 1;
         const skip = resultPerPage*(currentPage - 1);  //resultperpage is the number of product per page and currentpage 
         // is the page number and skip is the number of product to skip (8*1) product in one page or fetch that data
+    this.query = this.query.limit(resultPerPage).skip(skip);
+    return this;
     }
 }
 
