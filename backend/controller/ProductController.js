@@ -1,6 +1,7 @@
 const Product = require('../models/ProductModel.js');
 const ErrorHandler = require('../utils/ErrorHandler.js');
 const catchAsyncErrors = require('../middleware/catchAsyncError')
+const Features = require('../utils/Features')
 
 //create product 
 exports.createProduct = catchAsyncErrors(async(req, res,next) => {
@@ -12,9 +13,10 @@ exports.createProduct = catchAsyncErrors(async(req, res,next) => {
 
 })
 
-//create product 
+//get app products
 exports.getAllProdcuts =catchAsyncErrors(async(req,res)=>{
-    const products = await Product.find();
+    const feature = new Features(Product.find(), req.query).search()
+    const products = await feature.query;
     res.status(200).json({
         success:true,
         products
@@ -27,7 +29,7 @@ exports.updateProduct = catchAsyncErrors(async(req,res,next)=>{
     let product = await Product.findById(req.params.id);
 
     if(!product){
-        return next(new ErrorHandler('product is not found with this id',404));
+        return next(new ErrorHandler('product is not found with this id',404)); //error handler
     }
 
     product = await Product.findByIdAndUpdate(req.params.id,req.body,{
@@ -70,7 +72,7 @@ exports.getSingleProduct =catchAsyncErrors(async(req,res,next)=>{
         //     success:false,
         //     message:'product  is not found with this id'
         // })
-        return next(new ErrorHandler('product is not found with this id',404));
+        return next(new ErrorHandler('product is not found with this id',404));  //error.js file
     }
 
     res.status(200).json({
