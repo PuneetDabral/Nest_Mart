@@ -47,6 +47,7 @@ const userSchema = new mongoose.Schema({
 
 //hash the plain text password before saving
 userSchema.pre("save", async function(next){
+    if(!this.isModified("password")) return next();
     this.password = await bcrypt.hash(this.password, 10);
 });
 
@@ -60,5 +61,20 @@ userSchema.methods.getJwtToken = function(){
 userSchema.methods.comparePassword = async function(password){
     return await bcrypt.compare(password, this.password);
 }
+
+//forget password
+userSchema.methods.getResetToken = function(){
+
+    //genrating token 
+    const resetToken = crypto.randomBytes(20).toString('hex');
+
+    //hashing and adding reset password token to user schema
+    this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest('hex');
+//60 minute , 1000ms
+    this.resetPasswordTime = Date.now() * 15 *60 *1000;
+
+    return resetToken;
+}
+
 
 module.exports = mongoose.model("User",userSchema);
