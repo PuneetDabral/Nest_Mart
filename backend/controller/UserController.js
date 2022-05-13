@@ -1,6 +1,7 @@
 const User = require("../models/UserModel");
 const ErrorHandler = require("../utils/ErrorHandler.js");
 const catchAsyncErrors = require("../middleware/catchAsyncError");
+const sendToken = require('../utils/jwtToken');
 
 //register user
 exports.createUser = catchAsyncErrors(async (req, res, next) => {
@@ -15,11 +16,8 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
       url: "https://testing.com",
     },
   });
-  const token = user.getSignedJwtToken();
-  res.status(201).json({
-    success: true,
-    token,
-  });
+  
+  sendToken(user, 200, res);
 });
 
 //login
@@ -48,9 +46,19 @@ exports.loginUser = catchAsyncErrors(async (req, res,next) => {
     );
   }
 
-  const token = user.getSignedJwtToken();
-  res.status(201).json({
-    success: true,
-    token,
-  });
+  sendToken(user,201,res)
 });
+
+
+//logout
+exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
+    res.cookie("token", null , {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true,
+    });
+    res.status(200).json({
+        status: "success",
+        message: "Logged out successfully",
+    });
+
+})
