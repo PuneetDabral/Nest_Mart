@@ -142,3 +142,41 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   
     sendToken(user, 200, res);
 });
+
+
+//get User details
+exports.userDetails = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  console.log(req.user.id)
+  res.status(200).json({
+ sucesss: true,
+      user
+  });
+})
+
+//update user password
+exports.updatePassword = catchAsyncErrors(async(req, res, next) =>{
+
+  //our password field does not return 
+  const user = await User.findById(req.user.id).select("+password"); //req.user._id or id is same way to get document ide 
+
+  const isPasswordMatch = await user.comparePassword(req.body.oldPassword);
+
+  if (!isPasswordMatch) {
+    return next(
+      new ErrorHandler("old password is incorrect ", 400)
+    );
+  }
+
+  if(req.body.newPassword !== req.body.confirmPassword ){
+      return next(
+        new ErrorHandler("new password is not matched with the confirm password ", 400)
+      )
+    
+  }
+
+  user.password = req.body.newPassword;
+  await user.save();
+
+  sendToken(user, 200, res);
+})

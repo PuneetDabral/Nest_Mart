@@ -20,7 +20,7 @@ module.exports = (err,req,res,next) =>{
         err = new ErrorHandler(message, 400);
       }
 
-    // Wrong Jwt error
+    // Wrong Jwt error user reset password through mail
     if (err.name === "JsonWebTokenError") {
         const message = `Your url is invalid please try again`;
         err = new ErrorHandler(message, 400);
@@ -29,7 +29,7 @@ module.exports = (err,req,res,next) =>{
 
         //Jwt expired error
       if (err.name === "TokenExpiredError") {
-        const message = `Your url is expired please try again`;
+        const message = `Your Token is expired please login again`;
         err = new ErrorHandler(message, 400);
         }
 
@@ -40,3 +40,4 @@ module.exports = (err,req,res,next) =>{
         // message:err.stack
     })
 }
+
