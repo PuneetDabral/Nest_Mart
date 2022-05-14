@@ -13,7 +13,7 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   }
 
   const decodeData = jwt.verify(token, process.env.JWT_SECRET_KEY);
-
+ //user ide decoded data 
   req.user = await User.findById(decodeData.id);
 
   next();
@@ -24,7 +24,7 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
 // ... means object spread operator
 exports.authorizeRoles = (...roles) =>{
     return (req, res, next) =>{
-        if(!roles.includes(req.user.role)){ // if jo hmaara role h vo admin ne h to yai error passs kro(req.user.role)(true but we need false )
+        if(!roles.includes(req.user.role)){ // jo hmaara req.role.user h vo user nhi hona chaheye agr h to error pass kr do (req.user.role)(true but we need false )
         // console.log(req.user.role);
             return next(new ErrorHandler(`${req.user.role} can not acess this resources`));
         }
