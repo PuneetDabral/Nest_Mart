@@ -47,7 +47,11 @@ const userSchema = new mongoose.Schema({
 
 //hash the plain text password before saving
 userSchema.pre("save", async function(next){
-    if(!this.isModified("password")) return next();
+    //if password is modified then change it to hash passward otherwise skip (runs only user creation )
+    if(!this.isModified("password"))
+     {
+         return next()
+     };
     this.password = await bcrypt.hash(this.password, 10);
 });
 
@@ -71,7 +75,7 @@ userSchema.methods.getResetToken = function(){
     //hashing and adding reset password token to user schema
     this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest('hex');
 //60 minute , 1000ms
-    this.resetPasswordTime = Date.now() * 15 *60 *1000;
+    this.resetPasswordTime = Date.now() + 15 * 60 * 1000;
 
     return resetToken;
 }

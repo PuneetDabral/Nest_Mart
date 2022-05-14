@@ -1,8 +1,9 @@
 const User = require("../models/UserModel");
 const ErrorHandler = require("../utils/ErrorHandler.js");
 const catchAsyncErrors = require("../middleware/catchAsyncError");
-const sendToken = require('../utils/jwtToken');
-const sendMail = require('../utils/sendMail.js')
+const sendToken = require("../utils/jwtToken");
+const sendMail = require("../utils/sendMail.js");
+const crypto = require("crypto");
 
 //register user
 exports.createUser = catchAsyncErrors(async (req, res, next) => {
@@ -17,13 +18,13 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
       url: "https://testing.com",
     },
   });
-  
+
   sendToken(user, 200, res);
 });
 
 //login
 
-exports.loginUser = catchAsyncErrors(async (req, res,next) => {
+exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -47,63 +48,97 @@ exports.loginUser = catchAsyncErrors(async (req, res,next) => {
     );
   }
 
-  sendToken(user,201,res)
+  sendToken(user, 201, res);
 });
-
 
 //logout
 exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
-    res.cookie("token", null , {
-        expires: new Date(Date.now() + 10 * 1000),
-        httpOnly: true,
-    });
-    res.status(200).json({
-        status: "success",
-        message: "Logged out successfully",
-    });
+  res.cookie("token", null, {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+  res.status(200).json({
+    status: "success",
+    message: "Logged out successfully",
+  });
+});
 
-})
 
-
-//forgot password 
+//forgot password
 exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
-  if(!user){
+  if (!user) {
     return next(new ErrorHandler("User not found with this email", 404));
   }
 
-  //get passwordreset token 
+  //get passwordreset token
   const resetToken = user.getResetToken();
 
   await user.save({
     validateBeforeSave: false,
   });
-//req.protocal = http
-  const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset/${resetToken}`;
+  //req.protocal = http
+  const resetPasswordUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/password/reset/${resetToken}`;
 
   const message = `your password reset token is: \n\n ${resetPasswordUrl}`;
 
-  try{
+  //yai ek bina hash ka token mail mai send ho zai ga
+  try {
     await sendMail({
       email: user.email,
       subject: "Ecommerce Password Recovery",
-      message
-    })
+      message,
+    });
 
     res.status(200).json({
-      sucesss:true,
-      message : `Email send to ${user.email} succesfull`
-    })
-  }catch(err){
+      sucesss: true,
+      message: `Email send to ${user.email} succesfull`,
+    });
+  } catch (err) {
     user.resetPasswordToken = undefined;
     user.resetPasswordTime = undefined;
     await user.save({
       validateBeforeSave: false,
-
-    })
+    });
 
     return next(new ErrorHandler(err.message));
-
   }
-})
+});
+
+
+
+//Reset password
+exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
+  //crreate token hash
+  //now we hash token which we have in mail and compare it to our db token
+  const resetPasswordToken = crypto.crypto.createHash("sha256").update(req.params.token).digest('hex');
+
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordTime: { $gt: Date.now() },
+    });
+  
+    if (!user) {
+      return next(
+        new ErrorHandler("Reset password url is invalid or has been expired", 400)
+      );
+    }
+  
+    if (req.body.password !== req.body.confirmPassword) {
+      return next(
+        new ErrorHandler("Password is not matched with the new password", 400)
+      );
+    }
+  
+    user.password = req.body.password;
+  
+    user.resetPasswordToken = undefined;
+    user.resetPasswordTime = undefined;
+  
+    await user.save();
+  
+    sendToken(user, 200, res);
+});
