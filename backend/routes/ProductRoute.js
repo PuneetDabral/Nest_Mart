@@ -8,6 +8,8 @@ const {
   deleteProduct,
   getSingleProduct,
   createProductReview,
+  getSingleProductRivews,
+  deleteReview,
 } = require("../controller/ProductController");
 
 const router = express.Router();
@@ -24,5 +26,11 @@ router.route("/product/:id").get(getSingleProduct);
 
 //for gives rivew 
 router.route("/product/review").post(isAuthenticatedUser,createProductReview)
+
+//get single product rivews 
+router.route("/reviews").get(getSingleProductRivews);
+
+//review delete admin 
+router.route("/reviews").delete(isAuthenticatedUser,authorizeRoles("admin"),deleteReview)
 
 module.exports = router;
