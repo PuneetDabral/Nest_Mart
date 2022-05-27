@@ -1,10 +1,32 @@
-import React from "react";
+import React , { useEffect } from "react";
 import './Home.css'
 import Carousel from "react-material-ui-carousel";
 import bg from "../../Assets/background.jpg";
 import bg2 from "../../Assets/background2.jpg";
+import ProductCard from '../Product/ProductCard';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getProduct ,clearErrors } from "../../actions/ProductActions";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const { products,error,loading} = useSelector(
+    (state) => state.products
+   
+  );
+  console.log(products)
+
+  useEffect(() => {
+    if(error){ 
+      // toast.error(error);
+      alert.error(error);
+      console.log(error)
+      dispatch(clearErrors());
+ }
+  dispatch(getProduct());
+   }, [dispatch,error])
+
+
   return (
     <>
       <div className="banner">
@@ -110,23 +132,12 @@ const Home = () => {
 
       <h2 className="homeHeading">Featured Products</h2>
       <div className="container" id="container">
-        {/* {products && products.map((product) =>(
-<ProductCard key={product._id} product={product} />
-))} */}
+        {
+          products && products.map((product) =>(
+          <ProductCard key={product._id} product={product.product} />
+        ))
+        }
       </div>
-      {/* <ToastContainer 
-position="bottom-center"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-/>
-<Footer />
-<BottomTab /> */}
     </>
   );
 };
