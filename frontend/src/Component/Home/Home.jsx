@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getProduct ,clearErrors } from "../../actions/ProductActions";
 import Header from "./Header";
+import MetaData from '../../more/Metadata'
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const Home = () => {
        )
        : (
         <>
+        <MetaData title={`Home`} /> 
         <Header />
       <div className="banner">
         <Carousel>
