@@ -3,9 +3,13 @@ import MetaData from '../../more/Metadata'
 import Header from '../Home/Header'
 import { useSelector, useDispatch } from 'react-redux';
 import { clearErrors, getProductDetails } from '../../actions/ProductActions';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Carousel from "react-material-ui-carousel";
+import { Rating } from "@material-ui/lab";
 import './ProductDetails.css'
+import Footer from '../../Footer';
+
+
 
 const ProductDetails = ({match}) => {
   const dispatch = useDispatch();
@@ -21,6 +25,31 @@ const ProductDetails = ({match}) => {
     }
     dispatch(getProductDetails(match.params.id));
   },[error]);
+
+  const options = {
+    value: product.ratings,
+    readOnly: true,
+    precision: 0.5,
+  };
+
+
+
+
+  // Increase quantity
+  const [quantity, setQuantity] = useState(1);
+
+  const increaseQuantity = () => {
+    if (product.Stock <= quantity) return alert("Product stock limited");
+    const qty = quantity + 1;
+    setQuantity(qty);
+  };
+
+  const decreaseQuantity = () => {
+    if (1 >= quantity) return;
+    const qty = quantity - 1;
+    setQuantity(qty);
+  };
+
 
 
   return (
@@ -46,7 +75,7 @@ const ProductDetails = ({match}) => {
                 <h2>{product.name}</h2>
               </div>
               <div className="detailsBlock-2">
-                {/* <Rating {...options} /> */}
+                <Rating {...options} />
                 <span>({product.numOfReviews} Reviews)</span>
               </div>
               <div className="detailsBlock">
@@ -63,9 +92,9 @@ const ProductDetails = ({match}) => {
                 <div className="detailsBlock-3-1">
                   <span className="quantity">Quantity</span>
                   <div className="detailsBlock-3-1-1">
-                    <button>-</button>
-                    <input type="number" readOnly />
-                    <button>+</button>
+                    <button onClick={decreaseQuantity}>-</button>
+                    <input type="number" readOnly value={quantity} />
+                    <button onClick={increaseQuantity}>+</button>
                   </div>{" "}
                 </div>
                 <p className="stock__meta" style={{ paddingBottom: ".5vmax" }}>
@@ -279,6 +308,7 @@ const ProductDetails = ({match}) => {
               </div>
             </div>
           </div>
+  <Footer />
  </>
   )
 }

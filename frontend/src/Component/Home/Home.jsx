@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { getProduct ,clearErrors } from "../../actions/ProductActions";
 import Header from "./Header";
 import MetaData from '../../more/Metadata'
+import Footer from "../../Footer";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -153,6 +154,7 @@ const Home = () => {
     </>
        )
      }
+     <Footer />
    </>
   );
 };
