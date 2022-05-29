@@ -1,8 +1,9 @@
 import './App.css';
-import Header from './Component/Home/Header';
 import Home from './Component/Home/Home';
 import WebFont from 'webfontloader';
 import { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import ProductDetails from './Component/Product/ProductDetails';
 
 
 
@@ -20,12 +21,12 @@ function App() {
   }, []);
   
   return (
-    <div className="App">
-    <Header />
-    <Home />
-
-    
-    </div>
+    <Router>
+      <Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/product/:id" component={ProductDetails} />
+      </Switch>
+    </Router>
   );
 }
 

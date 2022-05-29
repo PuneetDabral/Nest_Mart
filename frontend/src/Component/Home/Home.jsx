@@ -7,6 +7,7 @@ import ProductCard from '../Product/ProductCard';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getProduct ,clearErrors } from "../../actions/ProductActions";
+import Header from "./Header";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const Home = () => {
        )
        : (
         <>
+        <Header />
       <div className="banner">
         <Carousel>
           <img src={bg} className="bgImg" alt="bg-1" />
