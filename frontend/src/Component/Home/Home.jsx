@@ -28,7 +28,15 @@ const Home = () => {
 
 
   return (
-    <>
+   <>
+     {
+       loading ? (
+         <div className="text">
+           <h1>Loading</h1>
+         </div>
+       )
+       : (
+        <>
       <div className="banner">
         <Carousel>
           <img src={bg} className="bgImg" alt="bg-1" />
@@ -132,13 +140,16 @@ const Home = () => {
 
       <h2 className="homeHeading">Featured Products</h2>
       <div className="container" id="container">
-        {
-          products && products.map((product) =>(
-          <ProductCard key={product._id} product={product.product} />
-        ))
-        }
+       {
+         products && products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+         ))
+       }
       </div>
     </>
+       )
+     }
+   </>
   );
 };
 
