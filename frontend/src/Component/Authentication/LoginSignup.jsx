@@ -1,18 +1,92 @@
-import React, { useRef } from 'react'
+import React, { useRef , useState} from 'react'
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
 import { Link } from "react-router-dom";
 import MetaData from '../../more/Metadata';
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import './LoginSignup.css'
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../../more/Loading';
+import { CLEAR_ERRORS } from '../../constans/UserConstant';
+import { useEffect } from 'react';
+import { login, register } from '../../actions/UserActions';
 
 
-const LoginSignup = () => {
+const LoginSignup = ({ history, location }) => {
+  const  dispatch = useDispatch();
 
+  const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
+
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const { name, email, password } = user;
 
     const loginTab = useRef(null);
     const registerTab = useRef(null);
     const switcherTab = useRef(null);
+
+    const [avatar, setAvatar] = useState("/profile.png");
+  const [avatarPreview, setAvatarPreview] = useState("/profile.png");
+
+
+  const loginSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(loginEmail, loginPassword));
+  };
+
+  const registerSubmit = (e) => {
+    e.preventDefault();
+
+    const myForm = new FormData();
+
+    myForm.set("name", name);
+    myForm.set("email", email);
+    myForm.set("password", password);
+    myForm.set("avatar", avatar);
+    dispatch(register(myForm));
+  };
+
+  const registerDataChange = (e) => {
+    if (e.target.name === "avatar") {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setAvatarPreview(reader.result);
+          setAvatar(reader.result);
+        }
+      };
+
+      reader.readAsDataURL(e.target.files[0]);
+    } else {
+      setUser({ ...user, [e.target.name]: e.target.value });
+    }
+  };
+
+  const redirect = location.search ? location.search.split("=")[1] : "/";
+
+  useEffect(() => {
+    if (error) {
+      // toast.error(error);0
+      alert(error)
+      dispatch(CLEAR_ERRORS());
+    }
+
+    if (isAuthenticated) {
+      history.push(redirect);
+    }
+  }, [dispatch, error, alert, history, isAuthenticated]);
+
+  
 
 
     const switchTabs = (e, tab) => {
@@ -37,7 +111,13 @@ const LoginSignup = () => {
 
 
   return (
-    <>
+  <>
+    {
+      loading?(
+        <Loading />
+
+      ):(
+        <>
         <MetaData title="Login or Signup" />
           <div className="LoginSignUpContainer">
             <div className="LoginSignUpBox">
@@ -46,17 +126,17 @@ const LoginSignup = () => {
                 <p onClick={(e) => switchTabs(e, "login")}>LOGIN</p>
                   <p onClick={(e) => switchTabs(e, "register")}>REGISTER</p>
                 </div>
-                <button ></button>
+                <button ref={switcherTab} ></button>
               </div>
-              <form className="loginForm" >
+              <form className="loginForm" ref={loginTab} onSubmit={loginSubmit}>
                 <div className="loginEmail">
                   <MailOutlineIcon />
                   <input
                     type="email"
                     placeholder="Email"
                     required
-                    // value={loginEmail}
-                    // onChange={(e) => setLoginEmail(e.target.value)}
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
                   />
                 </div>
                 <div className="loginPassword">
@@ -65,8 +145,8 @@ const LoginSignup = () => {
                     type="password"
                     placeholder="Password"
                     required
-                    // value={loginPassword}
-                    // onChange={(e) => setLoginPassword(e.target.value)}
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
                   />
                 </div>
                 <Link to="/password/forgot">Forgot Password ?</Link>
@@ -78,9 +158,9 @@ const LoginSignup = () => {
 
               <form
                 className="signUpForm"
-                // ref={registerTab}
+                ref={registerTab}
                 encType="multipart/form-data"
-                // onSubmit={registerSubmit}
+                onSubmit={registerSubmit}
               >
                 <div className="signUpName">
                   <FaceIcon />
@@ -89,8 +169,8 @@ const LoginSignup = () => {
                     placeholder="Name"
                     required
                     name="name"
-                    // value={name}
-                    // onChange={registerDataChange}
+                    value={name}
+                    onChange={registerDataChange}
                   />
                 </div>
                 <div className="signUpEmail">
@@ -100,8 +180,8 @@ const LoginSignup = () => {
                     placeholder="Email"
                     required
                     name="email"
-                    // value={email}
-                    // onChange={registerDataChange}
+                    value={email}
+                    onChange={registerDataChange}
                   />
                 </div>
                 <div className="signUpPassword">
@@ -111,18 +191,18 @@ const LoginSignup = () => {
                     placeholder="Password"
                     required
                     name="password"
-                    // value={password}
-                    // onChange={registerDataChange}
+                    value={password}
+                    onChange={registerDataChange}
                   />
                 </div>
 
                 <div id="registerImage">
-                  <img  alt="Avatar Preview" />
+                  <img  src={avatarPreview} alt="Avatar Preview" />
                   <input
                     type="file"
                     name="avatar"
                     accept="image/*"
-                    // onChange={registerDataChange}
+                    onChange={registerDataChange}
                   />
                 </div>
                 <input type="submit" value="Register" className="signUpBtn" />
@@ -130,6 +210,9 @@ const LoginSignup = () => {
             </div>
           </div>
     </>
+      )
+    }
+  </>
   )
 }
 

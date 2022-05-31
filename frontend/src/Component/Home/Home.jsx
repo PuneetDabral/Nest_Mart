@@ -11,6 +11,8 @@ import Header from "./Header";
 import MetaData from '../../more/Metadata'
 import Footer from "../../Footer";
 
+import Loading from '../../more/Loading';
+
 const Home = () => {
   const dispatch = useDispatch();
   const { products,error,loading} = useSelector(
@@ -34,9 +36,7 @@ const Home = () => {
    <>
      {
        loading ? (
-         <div className="text">
-           <h1>Loading</h1>
-         </div>
+        <Loading />
        )
        : (
         <>

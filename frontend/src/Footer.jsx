@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
+    <>
     <div className="Footer flex space__around pz__15" style={{"borderTop":".3px solid rgba(21,21,21,0.5)"}}>
       {/* Footer 1st part */}
       <div className="footer1st">
@@ -24,7 +25,7 @@ const Footer = () => {
             <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
           </svg>
           <strong>Address:</strong>
-          <h6>7400 Jashore Sadar,Bangladesh</h6>
+          <h6>35 sarswati vihar , ambala </h6>
         </div>
 
         <div className="location flex py__10">
@@ -84,6 +85,7 @@ const Footer = () => {
       </div>
       {/* Footer 2nd part */}
       <div className="mobile">
+
         <div className="footer__2nd__part">
              <h5>Account</h5>
              <Link to="/login"><h3>Log In</h3></Link>
@@ -113,9 +115,21 @@ const Footer = () => {
       <Link to="/contact"><h3>contact us</h3></Link>
       <Link to="/about"><h3>About us</h3></Link>
       <Link to="/creator"><h3>Live Chat</h3></Link>
+    <a href="https://puneet2001-portfolio.vercel.app/projects" style={{
+   "text-decoration": "none",
+  //  "color": "black",
+    "width": "148px",
+    "display": "flex",
+    "font-size":"20px",
+    "margin":"5px",
+    // "padding":"4px"
+    }}>Made with ❤️ by PuneetDabral</a>
         </div>
-        </div>
+      </div>
+      
     </div>
+    </>
+    
   );
 };
 
