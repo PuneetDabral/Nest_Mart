@@ -19,7 +19,7 @@ const Home = () => {
     (state) => state.products
    
   );
-  console.log(products)
+  // console.log(products)
 
   useEffect(() => {
     if(error){ 

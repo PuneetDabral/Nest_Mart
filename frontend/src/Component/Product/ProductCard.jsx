@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
   //   precision: 0.5,
   // };
 
-  console.log(product)
+  // console.log(product)
   return (
     <>
     <Link className="ProductCard" to={`/product/${product._id}`}>

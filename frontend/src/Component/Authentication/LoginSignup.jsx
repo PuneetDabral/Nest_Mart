@@ -7,12 +7,14 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import './LoginSignup.css'
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../more/Loading';
-import { CLEAR_ERRORS } from '../../constans/UserConstant';
+import { CLEAR_ERRORS } from '../../constans/UserConstans';
 import { useEffect } from 'react';
-import { login, register } from '../../actions/UserActions';
+import { clearErrors, login, register } from '../../actions/UserActions';
 
 
 const LoginSignup = ({ history, location }) => {
+
+
   const  dispatch = useDispatch();
 
   const { error, loading, isAuthenticated } = useSelector(
@@ -78,7 +80,7 @@ const LoginSignup = ({ history, location }) => {
     if (error) {
       // toast.error(error);0
       alert(error)
-      dispatch(CLEAR_ERRORS());
+      dispatch(clearErrors);
     }
 
     if (isAuthenticated) {

@@ -116,7 +116,7 @@ const Footer = () => {
       <Link to="/about"><h3>About us</h3></Link>
       <Link to="/creator"><h3>Live Chat</h3></Link>
     <a href="https://puneet2001-portfolio.vercel.app/projects" style={{
-   "text-decoration": "none",
+  //  "text-decoration": "none",
   //  "color": "black",
     "width": "148px",
     "display": "flex",
