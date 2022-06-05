@@ -11,6 +11,7 @@ import { loadUser } from './actions/UserActions';
 import Store from './store.js'
 import Profile from './Component/user/Profile';
 import ProtectedRoute from './route/ProtectedRoute';
+import UpdatePassword from './Component/user/UpdatePassword';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
       <Route exact path="/product/:id" component={ProductDetails} />
       <Route exact path="/login" component={LoginSignup} />
       <ProtectedRoute exact path='/me' component={Profile} />
+      <ProtectedRoute exact path='/me/update' component={UpdatePassword} />
       </Switch>
     </Router>
   );
