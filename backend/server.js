@@ -2,6 +2,7 @@ const express = require('express');
 const app = require('./app')
 const dotenv = require('dotenv');
 const connectDB = require('./db/database');
+const cloudinary = require("cloudinary");
 
 //handling uncaught exception
 process.on('uncaughtException', (err) => {
@@ -19,6 +20,13 @@ dotenv.config({
 
 //connect database 
 connectDB();
+
+// cloudnary config
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
 
 //crete server
 

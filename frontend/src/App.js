@@ -12,6 +12,7 @@ import Store from './store.js'
 import Profile from './Component/user/Profile';
 import ProtectedRoute from './route/ProtectedRoute';
 import UpdatePassword from './Component/user/UpdatePassword';
+import EditProfile from './Component/user/EditProfile';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
       <Route exact path="/login" component={LoginSignup} />
       <ProtectedRoute exact path='/me' component={Profile} />
       <ProtectedRoute exact path='/me/update' component={UpdatePassword} />
+      <ProtectedRoute exact path='/me/update/info' component={EditProfile} />
       </Switch>
     </Router>
   );
