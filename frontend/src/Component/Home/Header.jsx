@@ -1,8 +1,19 @@
 import React from 'react'
 import './header.css'
 import { Link } from 'react-router-dom'
+import { useRef } from 'react';
 
 const Header = () => {
+  const switcherTab = useRef(null)
+
+  window.addEventListener("scroll", () =>{
+    if(window.pageYOffset > 100){
+        document.querySelector(".navbar").classList.add("active");
+    }
+    else{
+      document.querySelector(".navbar").classList.remove("active");
+    }
+  })
   return (
     <div className="Header">
     {/* Header TopBar */}
@@ -87,8 +98,7 @@ const Header = () => {
       </div>
     </div>
     {/* Header Navbar */}
-    {/* <div className="navbar flex pz__10 space__beetween" ref={switcherTab}> */}
-    <div className="navbar flex pz__10 space__beetween" >
+    <div className="navbar flex pz__10 space__beetween" ref={switcherTab}>
       <div
        className="navigation"
        style={{

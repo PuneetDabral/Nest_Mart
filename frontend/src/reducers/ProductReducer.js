@@ -18,13 +18,16 @@ export const productsReducer = (state = { products: [] }, action) => {
         loading: true,
         products: [],
       };
-
     case ALL_PRODUCT_SUCCESS:
       return {
         loading: false,
         products: action.payload.products,
+        productsCount: action.payload.productsCount,
+        resultPerPage: action.payload.resultPerPage,
+        filteredProductsCount: action.payload.filteredProductsCount,
       };
 
+    
     case ALL_PRODUCT_FAIL:
       return {
         loading: false,
@@ -39,6 +42,7 @@ export const productsReducer = (state = { products: [] }, action) => {
       return state;
   }
 };
+
 
 export const productDetailsReducer = (state = { product: {} }, action) => {
   switch (action.type) {

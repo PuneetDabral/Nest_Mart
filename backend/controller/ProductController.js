@@ -38,21 +38,25 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 });
 
 //get all products
-exports.getAllProdcuts = catchAsyncErrors(async (req, res) => {
+exports.getAllProducts = catchAsyncErrors(async (req,res) =>{
+  
   const resultPerPage = 8;
-  const productCount = await Product.countDocuments();
-
-  const feature = new Features(Product.find(), req.query)
-    .search()
-    .filter() //search  and filter is a product cantroller
-    .pagination(resultPerPage);
-  const products = await feature.query;
+ 
+  const productsCount = await Product.countDocuments();
+   
+   const feature = new Features(Product.find(), req.query)
+   .search()
+   .filter()
+   .pagination(resultPerPage)
+   ;
+  const products = await feature.query; 
   res.status(200).json({
     success: true,
     products,
     resultPerPage,
-  });
-});
+    productsCount
+  })
+ });  
 
 //update product admin
 exports.updateProduct = catchAsyncErrors(async (req, res, next) => {

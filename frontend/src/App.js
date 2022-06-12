@@ -14,6 +14,7 @@ import ProtectedRoute from './route/ProtectedRoute';
 import UpdatePassword from './Component/user/UpdatePassword';
 import EditProfile from './Component/user/EditProfile';
 import About from './Component/about/About';
+import Products from './Component/Product/Products';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
       <Route exact path="/product/:id" component={ProductDetails} />
       <Route exact path="/login" component={LoginSignup} />
       <Route exact path="/about" component={About} />
+      <Route exact path="/products" component={Products} />
       <ProtectedRoute exact path='/me' component={Profile} />
       <ProtectedRoute exact path='/me/update' component={UpdatePassword} />
       <ProtectedRoute exact path='/me/update/info' component={EditProfile} />
