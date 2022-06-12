@@ -16,6 +16,7 @@ import EditProfile from './Component/user/EditProfile';
 import About from './Component/about/About';
 import Products from './Component/Product/Products';
 import Search from './Component/Product/Search';
+import Support from './more/Support';
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
       <Route exact path="/products" component={Products} />
       <Route exact path="/search" component={Search} />
       <Route exact path="/products/:keyword" component={Products} />
+      <Route exact path="/support" component={Support} />
       <ProtectedRoute exact path='/me' component={Profile} />
       <ProtectedRoute exact path='/me/update' component={UpdatePassword} />
       <ProtectedRoute exact path='/me/update/info' component={EditProfile} />

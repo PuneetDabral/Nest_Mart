@@ -8,6 +8,8 @@ import Carousel from "react-material-ui-carousel";
 import { Rating } from "@material-ui/lab";
 import './ProductDetails.css'
 import Footer from '../../Footer';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -39,7 +41,7 @@ const ProductDetails = ({match}) => {
   const [quantity, setQuantity] = useState(1);
 
   const increaseQuantity = () => {
-    if (product.Stock <= quantity) return alert("Product stock limited");
+    if (product.Stock <= quantity) return toast.error("Product stock limited");
     const qty = quantity + 1;
     setQuantity(qty);
   };
@@ -309,6 +311,17 @@ const ProductDetails = ({match}) => {
             </div>
           </div>
   <Footer />
+  <ToastContainer 
+       position="bottom-center"
+       autoClose={5000}
+       hideProgressBar={false}
+       newestOnTop={false}
+       closeOnClick
+       rtl={false}
+       pauseOnFocusLoss
+       draggable
+       pauseOnHover
+       />
  </>
   )
 }
