@@ -9,6 +9,7 @@ import LockIcon from "@material-ui/icons/Lock";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { clearErrors, updatePassword } from "../../actions/UserActions";
 import { UPDATE_PASSWORD_RESET } from "../../constans/UserConstans";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const UpdatePassword = ({ history }) => {
@@ -36,12 +37,12 @@ const dispatch = useDispatch();
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-      alert("Profile Updated Successfully");
+      toast.success("Profile Updated Successfully");
       history.push("/me");
       dispatch({
         type: UPDATE_PASSWORD_RESET,
@@ -103,6 +104,17 @@ const dispatch = useDispatch();
               </form>
             </div>
           </div>
+          <ToastContainer 
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        />
         </>
       )}
       {/* <BottomTab /> */}

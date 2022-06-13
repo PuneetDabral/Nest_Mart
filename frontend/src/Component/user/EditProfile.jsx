@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, loadUser, updateProfile } from "../../actions/UserActions";
 import MetaData from "../../more/Metadata";
 import { UPDATE_PROFILE_RESET } from "../../constans/UserConstans";
-// import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import Loading from '../../more/Loading';
 
 const EditProfile = ({history}) => {
@@ -55,14 +55,14 @@ const EditProfile = ({history}) => {
       }
 
     if (error) {
-    //   toast.error(error);
-    alert(error)
+      toast.error(error);
+    // alert(error)
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-    //   toast.success("Profile updated successfully");
-    alert('update succesfully')
+      toast.success("Profile updated successfully");
+    // alert('update succesfully')
       dispatch(loadUser());
 
       history.push("/me");
@@ -130,7 +130,7 @@ const EditProfile = ({history}) => {
           </div>
             </>
         )}
-        {/* <ToastContainer 
+        <ToastContainer 
         position="bottom-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -140,7 +140,7 @@ const EditProfile = ({history}) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        /> */}
+        />
         </>
     )
 }

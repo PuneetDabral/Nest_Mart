@@ -10,6 +10,8 @@ import Loading from '../../more/Loading';
 import { CLEAR_ERRORS } from '../../constans/UserConstans';
 import { useEffect } from 'react';
 import { clearErrors, login, register } from '../../actions/UserActions';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const LoginSignup = ({ history, location }) => {
@@ -78,8 +80,8 @@ const LoginSignup = ({ history, location }) => {
 
   useEffect(() => {
     if (error) {
-      // toast.error(error);0
-      alert(error)
+      toast.error("Please login to acess this resource");
+      // alert(error)
       dispatch(clearErrors);
     }
 
@@ -211,6 +213,18 @@ const LoginSignup = ({ history, location }) => {
               </form>
             </div>
           </div>
+          <div></div>
+          <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
     </>
       )
     }

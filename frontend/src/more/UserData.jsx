@@ -15,7 +15,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/UserActions";
 import { useRef } from "react";
-// import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 const UserData = ({ user }) => {
 
@@ -107,8 +107,8 @@ const UserData = ({ user }) => {
 
   function logoutUser() {
     dispatch(logout());
-    // toast.success("Logout Successfully");
-    alert('logout')
+    toast.success("Logout Successfully");
+   
   }
 
   return (
@@ -144,7 +144,7 @@ const UserData = ({ user }) => {
           />
         ))}
       </SpeedDial>
-      {/* <ToastContainer 
+      <ToastContainer 
         position="bottom-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -154,7 +154,7 @@ const UserData = ({ user }) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        /> */}
+        />
     </>
   );
 };

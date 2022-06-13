@@ -10,8 +10,10 @@ import { getProduct ,clearErrors } from "../../actions/ProductActions";
 import Header from "./Header";
 import MetaData from '../../more/Metadata'
 import Footer from "../../Footer";
-
+import BottomTab from "../../more/BottomTab";
 import Loading from '../../more/Loading';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -23,8 +25,8 @@ const Home = () => {
 
   useEffect(() => {
     if(error){ 
-      // toast.error(error);
-      alert.error(error);
+      toast.error(error);
+      // alert.error(error);
       console.log(error)
       dispatch(clearErrors());
  }
@@ -154,7 +156,19 @@ const Home = () => {
     </>
        )
      }
+     <ToastContainer 
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        />
      <Footer />
+     <BottomTab />
    </>
   );
 };

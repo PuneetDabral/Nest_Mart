@@ -5,7 +5,7 @@ import Header from "../Home/Header"
 import Loading from "../../more/Loading";
 import MetaData from "../../more/Metadata";
 import "./About.css";
-// import BottomTab from "../../more/BottomTab";
+import BottomTab from "../../more/BottomTab";
 
 const About = () => {
     const { loading } = useSelector(
@@ -182,7 +182,7 @@ const About = () => {
     </div>
     <Footer />
   </div>
-  {/* <BottomTab /> */}
+  <BottomTab />
   </>
     }
     </>

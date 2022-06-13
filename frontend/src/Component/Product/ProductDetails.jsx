@@ -10,6 +10,7 @@ import './ProductDetails.css'
 import Footer from '../../Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BottomTab from "../../more/BottomTab";
 
 
 
@@ -22,7 +23,7 @@ const ProductDetails = ({match}) => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
     dispatch(getProductDetails(match.params.id));
@@ -310,8 +311,7 @@ const ProductDetails = ({match}) => {
               </div>
             </div>
           </div>
-  <Footer />
-  <ToastContainer 
+          <ToastContainer 
        position="bottom-center"
        autoClose={5000}
        hideProgressBar={false}
@@ -322,6 +322,8 @@ const ProductDetails = ({match}) => {
        draggable
        pauseOnHover
        />
+  <Footer />
+        <BottomTab />
  </>
   )
 }

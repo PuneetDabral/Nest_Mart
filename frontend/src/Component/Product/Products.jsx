@@ -10,7 +10,7 @@ import "./Product.css";
 import Typography from"@material-ui/core/Typography"
 // import { useAlert } from "react-alert";
 import MetaData from "../../more/Metadata";
-// import BottomTab from "../../more/BottomTab";
+import BottomTab from "../../more/BottomTab";
 
 const categories = [
     "Personal",
@@ -168,7 +168,7 @@ const Products = ({ match }) => {
               </div>
           </div>
           <Footer />
-          {/* <BottomTab /> */}
+          <BottomTab />
         </>
       )}
     </>
