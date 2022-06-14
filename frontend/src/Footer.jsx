@@ -76,7 +76,7 @@ const Footer = () => {
 
         <div className="app">
             <h1>Install App</h1>
-            <h6>From App Store or Google Play</h6>
+            <h6>Made with ❤️ by <a href="https://puneet2001-portfolio.vercel.app/projects">PuneetDabral</a></h6>
             <div className="App__Image flex pointer">
             <Link to="/creator"><img  alt='img' src="http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/app-store.jpg" style={{"width":"150px","margin":"10px"}} /></Link>
             <Link to="/creator"><img  alt='img' src="http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/google-play.jpg" style={{"width":"150px","margin":"10px"}} /></Link>
@@ -115,15 +115,6 @@ const Footer = () => {
       <Link to="/contact"><h3>contact us</h3></Link>
       <Link to="/about"><h3>About us</h3></Link>
       <Link to="/creator"><h3>Live Chat</h3></Link>
-    <a href="https://puneet2001-portfolio.vercel.app/projects" style={{
-  //  "text-decoration": "none",
-  //  "color": "black",
-    "width": "148px",
-    "display": "flex",
-    "font-size":"20px",
-    "margin":"5px",
-    // "padding":"4px"
-    }}>Made with ❤️ by PuneetDabral</a>
         </div>
       </div>
       

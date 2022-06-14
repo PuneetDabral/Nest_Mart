@@ -11,6 +11,7 @@ import Footer from '../../Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BottomTab from "../../more/BottomTab";
+import { addItemsToCart } from '../../actions/CartAction';
 
 
 
@@ -51,6 +52,15 @@ const ProductDetails = ({match}) => {
     if (1 >= quantity) return;
     const qty = quantity - 1;
     setQuantity(qty);
+  };
+
+  const addToCartHandler = () => {
+    if (product.Stock > 0) {
+      dispatch(addItemsToCart(match.params.id, quantity));
+      toast.success("Product Added to cart");
+    } else {
+      toast.error("Product stock limited");
+    }
   };
 
 
@@ -156,7 +166,7 @@ const ProductDetails = ({match}) => {
                       alignItems: "center",
                       backgroundColor: "#E4EAEC",
                     }}
-                    // onClick={addToCartHandler}
+                    onClick={addToCartHandler}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

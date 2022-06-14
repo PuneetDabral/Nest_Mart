@@ -2,8 +2,12 @@ import React from 'react'
 import './header.css'
 import { Link } from 'react-router-dom'
 import { useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+  const { cartItems } = useSelector((state) => state.cart);
+
+
   const switcherTab = useRef(null)
 
   window.addEventListener("scroll", () =>{
@@ -213,8 +217,8 @@ const Header = () => {
                 right: "3.5%",
               }}
             >
-              {/* <span>{cartItems.length}</span> */}
-              <span>5</span>
+              <span>{cartItems.length}</span>
+            
             </div>
           </div>
         </div>
