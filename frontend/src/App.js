@@ -19,6 +19,7 @@ import Search from './Component/Product/Search';
 import Support from './more/Support';
 import Cart from './Component/cart/Cart';
 import Favourites from './Component/cart/Favourites';
+import Shipping from './Component/cart/Shipping';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
       <Route exact path="/support" component={Support} />
       <Route exact path="/cart" component={Cart} />
       <Route exact path="/favourites" component={Favourites} />
+      <ProtectedRoute exact path="/shipping" component={Shipping} />
       <ProtectedRoute exact path='/me' component={Profile} />
       <ProtectedRoute exact path='/me/update' component={UpdatePassword} />
       <ProtectedRoute exact path='/me/update/info' component={EditProfile} />
