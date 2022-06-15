@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const { favouriteItems } = useSelector((state) => state.favourite);
-
+  
 
   const switcherTab = useRef(null)
 
@@ -98,7 +98,7 @@ const Header = () => {
         >
           <strong style={{
             padding:"0px 5px"
-          }}>Email:</strong> temp123@gmail.com
+          }}>Email:</strong>puneetdabral2000@gmail.com
         </span>
       </div>
     </div>
