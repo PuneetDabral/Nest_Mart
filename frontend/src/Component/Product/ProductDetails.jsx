@@ -12,6 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BottomTab from "../../more/BottomTab";
 import { addItemsToCart } from '../../actions/CartAction';
+import { addFavouriteItemsToCart } from '../../actions/FavouriteAction';
 
 
 
@@ -61,6 +62,11 @@ const ProductDetails = ({match}) => {
     } else {
       toast.error("Product stock limited");
     }
+  };
+
+  const addToFavouriteHandler = () => {
+    dispatch(addFavouriteItemsToCart(match.params.id, quantity));
+    toast.success("Product Added to Favourites");
   };
 
 
@@ -139,7 +145,7 @@ const ProductDetails = ({match}) => {
                       cursor: "pointer",
                       padding: "15px 5px",
                     }}
-                    // onClick={addToFavouriteHandler}
+                    onClick={addToFavouriteHandler}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
