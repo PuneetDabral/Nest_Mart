@@ -13,7 +13,7 @@
     const BottomTab = () => {
 
       const { cartItems } = useSelector((state) => state.cart);
-    //   const { favouriteItems } = useSelector((state) => state.favourite);
+      const { favouriteItems } = useSelector((state) => state.favourite);
 
       return (
         <>
@@ -97,7 +97,7 @@
               color:"#fff",
               fontWeight:"400",
             }}>
-            {/* {favouriteItems.length} */}10
+            {favouriteItems.length}
             </span>
             </div>
           </Link>

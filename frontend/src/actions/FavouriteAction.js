@@ -1,4 +1,4 @@
-import { ADD_TO_FAVOURITE, ADD_TO_FAVOURITE_OFFER, REMOVE_FROM_FAVOURITE, REMOVE_FROM_FAVOURITE_OFFER}
+import { ADD_TO_FAVOURITE, REMOVE_FROM_FAVOURITE}
 from "../constans/FavouriteConstans";
 import axios from "axios";
 
