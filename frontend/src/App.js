@@ -26,6 +26,13 @@ import Shipping from './Component/cart/Shipping';
 import ConfirmOrder from './Component/cart/ConfirmOrder';
 import Payment from './Component/cart/Payment';
 import Success from './Component/cart/Success';
+import MyOrder from './Component/user/MyOrder';
+import MyOrderDetails from './Component/user/MyOrderDetails';
+import MoreOption from './Component/user/MoreOption';
+import CommingSoon from './more/CommingSoon';
+import Rules from './more/Rules';
+import Contact from './more/Contact';
+import DashBoard from './Component/Admin/DashBoard';
 
 
 function App() {
@@ -73,12 +80,19 @@ function App() {
       <Route exact path="/support" component={Support} />
       <Route exact path="/cart" component={Cart} />
       <Route exact path="/favourites" component={Favourites} />
-      <Route exact path="/success" component={Success} />
+      <Route exact path="/commingsoon" component={CommingSoon} />
+      <Route exact path="/contact" component={Contact} />
+      <Route exact path="/faq" component={Rules} />
+      <Route exact path="/more" component={MoreOption} />
       <ProtectedRoute exact path="/shipping" component={Shipping} />
       <ProtectedRoute exact path="/order/confirm" component={ConfirmOrder} />
       <ProtectedRoute exact path='/me' component={Profile} />
       <ProtectedRoute exact path='/me/update' component={UpdatePassword} />
       <ProtectedRoute exact path='/me/update/info' component={EditProfile} />
+      <ProtectedRoute exact path="/success" component={Success} />
+      <ProtectedRoute exact path="/orders" component={MyOrder} />
+      <ProtectedRoute exact path="/order/:id" component={MyOrderDetails} />
+      <ProtectedRoute isAdmin={true} exact path="/dashboard" component={DashBoard} />
       </Switch>
     </Router>
   );

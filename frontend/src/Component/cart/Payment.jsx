@@ -120,6 +120,8 @@ const Payment = ({ history }) => {
    ) : (
     <>
     <MetaData title="Payment" />
+    <div  style={{background:'#3BB77E', display:'flex', justifyContent:'center'}}><span style={{color:'white'}}>Card No:4242424242424242 ,
+     MM/YY:01/24  , CVC:123</span> </div>
     <CheckoutSteps activeStep={2} />
     <div className="paymentContainer">
       <form className="paymentForm" onSubmit={(e) => submitHandler(e)}>

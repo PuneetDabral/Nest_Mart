@@ -2,7 +2,7 @@ import React from 'react'
 import MetaData from '../../more/Metadata'
 import Header from '../Home/Header'
 import { useSelector, useDispatch } from 'react-redux';
-import { clearErrors, getProductDetails } from '../../actions/ProductActions';
+import { clearErrors, getProductDetails, newReview } from '../../actions/ProductActions';
 import { useEffect, useState } from 'react';
 import Carousel from "react-material-ui-carousel";
 import { Rating } from "@material-ui/lab";
@@ -13,15 +13,44 @@ import 'react-toastify/dist/ReactToastify.css';
 import BottomTab from "../../more/BottomTab";
 import { addItemsToCart } from '../../actions/CartAction';
 import { addFavouriteItemsToCart } from '../../actions/FavouriteAction';
+import ReviewCard from "./ReviewCard.jsx";
+import { NEW_REVIEW_RESET } from "../../constans/ProductConstans";
 
 
 
-const ProductDetails = ({match}) => {
+const ProductDetails = ({match,history}) => {
   const dispatch = useDispatch();
 
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
+
+  const { isAuthenticated } = useSelector((state) => state.user);
+
+  const reviewSubmitHandler = (e) => {
+    e.preventDefault();
+
+    const myForm = new FormData();
+
+    myForm.set("rating", rating);
+    myForm.set("comment", comment);
+    myForm.set("productId", match.params.id);
+
+    {
+      isAuthenticated !== true ? history.push(`/login?redirect=/`) : <></>;
+    }
+
+    dispatch(newReview(myForm));
+
+    {
+      comment.length === 0
+        ? toast.error("Please fill the comment box")
+        : toast.success("Review done successfully reload for watch it");
+    }
+    dispatch({ type: NEW_REVIEW_RESET });
+  };
+
+
 
   useEffect(() => {
     if (error) {
@@ -37,7 +66,8 @@ const ProductDetails = ({match}) => {
     precision: 0.5,
   };
 
-
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
 
 
   // Increase quantity
@@ -225,7 +255,7 @@ const ProductDetails = ({match}) => {
                 <div className="review__option">
                   {product.reviews &&
                     product.reviews.map((review) => (
-                      {/* <ReviewCard review={review} /> */}
+                      <ReviewCard review={review} />
                       
                     ))}
                 </div>
@@ -275,11 +305,11 @@ const ProductDetails = ({match}) => {
                     >
                       Your Rating*
                     </span>
-                    {/* { <Rating
+                    { <Rating
                       onChange={(e) => setRating(e.target.value)}
                       value={rating}
                       size="large"
-                    /> } */}
+                    /> }
                     <div
                       style={{
                         display: "flex",
@@ -292,8 +322,8 @@ const ProductDetails = ({match}) => {
                   cols="30"
                   rows="6"
                   placeholder="Comment *"
-                  // value={comment}
-                  // onChange={(e) => setComment(e.target.value)}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
                   style={{
                     maxWidth: "100%",
                     color: "#111",
@@ -320,7 +350,7 @@ const ProductDetails = ({match}) => {
                     cursor: "pointer",
                     color: "#fff",
                   }}
-                  // onClick={reviewSubmitHandler}
+                  onClick={reviewSubmitHandler}
                 >
                   Submit
                 </button>

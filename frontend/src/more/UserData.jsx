@@ -69,6 +69,7 @@ const UserData = ({ user }) => {
   ];
 
   if (user.role === "admin") {
+    console.log(user.role)
     options.unshift({
       icon: <DashboardIcon />,
       name: "Dashboard",
@@ -76,6 +77,7 @@ const UserData = ({ user }) => {
     });
   }
   if (user.role === "Creator") {
+    console.log(user.role)
     options.unshift({
       icon: <DashboardIcon />,
       name: "Dashboard",
