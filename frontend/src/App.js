@@ -33,6 +33,7 @@ import CommingSoon from './more/CommingSoon';
 import Rules from './more/Rules';
 import Contact from './more/Contact';
 import DashBoard from './Component/Admin/DashBoard';
+import CreateProduct from './Component/Admin/CreateProduct';
 
 
 function App() {
@@ -93,6 +94,7 @@ function App() {
       <ProtectedRoute exact path="/orders" component={MyOrder} />
       <ProtectedRoute exact path="/order/:id" component={MyOrderDetails} />
       <ProtectedRoute isAdmin={true} exact path="/dashboard" component={DashBoard} />
+      <ProtectedRoute isAdmin={true} exact path="/admin/product" component={CreateProduct} />
       </Switch>
     </Router>
   );
