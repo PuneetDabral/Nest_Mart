@@ -8,8 +8,8 @@ import Chart from 'chart.js/auto';
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../../more/Metadata.js";
 import Loading from "../../more/Loading";
-// import { getAdminProduct } from "../../actions/ProductActions.js";
-// import { getAllOrders } from "../../actions/OrderAction.js";
+import { getAdminProduct } from "../../actions/ProductActions.js";
+import { getAllOrders } from "../../actions/OrderAction.js";
 // import { getAllUsers } from "../../actions/userAction.js";
 import { Doughnut, Line } from "react-chartjs-2";
 
@@ -19,30 +19,30 @@ const Dashboard = () => {
 
   const { products,Loading } = useSelector((state) => state.products);
 
-  // const { orders } = useSelector((state) => state.AllOrders);
+  const { orders } = useSelector((state) => state.AllOrders);
 
   // const { users } = useSelector((state) => state.allUsers);
 
    let outOfStock = 0;
      
-  //  products &&
-  //   products.forEach((item) => {
-  //     if (item.Stock === 0) {
-  //       outOfStock += 1;
-  //     }
-  //   });
+   products &&
+    products.forEach((item) => {
+      if (item.Stock === 0) {
+        outOfStock += 1;
+      }
+    });
 
-    // useEffect(() => {
-    //     dispatch(getAdminProduct());
-    //     dispatch(getAllOrders());
-    //     dispatch(getAllUsers());
-    //   }, [dispatch]);    
+    useEffect(() => {
+        dispatch(getAdminProduct());
+        dispatch(getAllOrders());
+        // dispatch(getAllUsers());
+      }, [dispatch]);    
 
     let totalAmount = 0;
-      // orders &&
-      //   orders.forEach((item) => {
-      //     totalAmount += item.totalPrice;
-      //   });
+      orders &&
+        orders.forEach((item) => {
+          totalAmount += item.totalPrice;
+        });
 
     const lineState = {
         labels: ["Initial Amount", "Amount Earned"],
@@ -52,7 +52,7 @@ const Dashboard = () => {
             backgroundColor: ["#3BB77E"],
             hoverBackgroundColor: ["#3BB77E"],
             data: [0, totalAmount],
-            data: 10
+        
 
           },
         ],
@@ -64,8 +64,8 @@ const Dashboard = () => {
       {
         backgroundColor: ["#00A6B4", "#6800B4"],
         hoverBackgroundColor: ["#4B5000", "#35014F"],
-        // data: [outOfStock, products.length - outOfStock],
-        data: [10],
+        data: [outOfStock, products.length - outOfStock],
+        
       },
     ],
   };
@@ -85,8 +85,8 @@ const Dashboard = () => {
           <div className="dashboardSummary">
             <div>
               <p>
-                {/* Total Amount <br /> ${totalAmount} */}
-               total amount  100
+                Total Amount <br /> ₹{totalAmount}
+             
               </p>
             </div>
             <div className="dashboardSummaryBox2">
@@ -96,8 +96,8 @@ const Dashboard = () => {
               </Link>
               <Link to="/admin/orders">
                 <p>Orders</p>
-                {/* <p>{orders && orders.length}</p> */}
-                10
+                <p>{orders && orders.length}</p>
+             
               </Link>
               <Link to="/admin/users">
                 <p>Users</p>

@@ -17,8 +17,10 @@ router.route("/orders/me").get(isAuthenticatedUser,getAllOrders)
 //get all order-----admin 
 router.route("/orders/admin").get(isAuthenticatedUser,authorizeRoles("admin"),getAdminAllOrders)
 
-//update & delete order by admin
-router.route("/admin/order/:id").put(isAuthenticatedUser, authorizeRoles("admin"), updateAdminOrder).delete(isAuthenticatedUser, authorizeRoles("admin"), deleteOrder);
+//update  admin
+router.route("/admin/order/:id").put(isAuthenticatedUser, authorizeRoles("admin"), updateAdminOrder)
+//delte admin
+router.route("/admin/order/:id").delete(isAuthenticatedUser, authorizeRoles("admin"), deleteOrder);
 
 
 module.exports = router;
