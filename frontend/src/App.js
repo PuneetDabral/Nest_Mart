@@ -38,6 +38,8 @@ import AllProducts from './Component/Admin/AllProducts';
 import EditProduct from './Component/Admin/EditProduct';
 import AllOrder from './Component/Admin/AllOrder';
 import UpdateOrder from './Component/Admin/UpdateOrder';
+import AllUsers from './Component/Admin/AllUser';
+import UpdateUser from './Component/Admin/UpdateUser';
 
 
 
@@ -105,9 +107,9 @@ function App() {
       <ProtectedRoute isAdmin={true} exact path="/edit/product/:id" component={EditProduct} />
        <ProtectedRoute isAdmin={true} exact path="/admin/orders" component={AllOrder} />
           <ProtectedRoute isAdmin={true} exact path="/admin/order/:id" component={UpdateOrder} />
-         {/* <ProtectedRoute isAdmin={true} exact path="/admin/users" component={AllUsers} />
-         <ProtectedRoute isAdmin={true} exact path="/admin/user/:id" component={UpdateUser} />
-         <ProtectedRoute isAdmin={true} exact path="/admin/reviews" component={AllReviews} />  */}
+          <ProtectedRoute isAdmin={true} exact path="/admin/users" component={AllUsers} />
+          <ProtectedRoute isAdmin={true} exact path="/admin/user/:id" component={UpdateUser} />
+         {/* <ProtectedRoute isAdmin={true} exact path="/admin/reviews" component={AllReviews} />  */}  
       </Switch>
     </Router>
   );
