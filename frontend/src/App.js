@@ -34,6 +34,8 @@ import Rules from './more/Rules';
 import Contact from './more/Contact';
 import DashBoard from './Component/Admin/DashBoard';
 import CreateProduct from './Component/Admin/CreateProduct';
+import AllProducts from './Component/Admin/AllProducts';
+
 
 
 function App() {
@@ -95,6 +97,7 @@ function App() {
       <ProtectedRoute exact path="/order/:id" component={MyOrderDetails} />
       <ProtectedRoute isAdmin={true} exact path="/dashboard" component={DashBoard} />
       <ProtectedRoute isAdmin={true} exact path="/admin/product" component={CreateProduct} />
+      <ProtectedRoute isAdmin={true} exact path="/admin/products" component={AllProducts} />
       </Switch>
     </Router>
   );

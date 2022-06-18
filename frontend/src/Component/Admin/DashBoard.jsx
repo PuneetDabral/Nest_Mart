@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   const dispatch = useDispatch();
 
-  // const { products,loading } = useSelector((state) => state.products);
+  const { products,Loading } = useSelector((state) => state.products);
 
   // const { orders } = useSelector((state) => state.AllOrders);
 
@@ -51,7 +51,9 @@ const Dashboard = () => {
             label: "TOTAL AMOUNT",
             backgroundColor: ["#3BB77E"],
             hoverBackgroundColor: ["#3BB77E"],
-            // data: [0, totalAmount],
+            data: [0, totalAmount],
+            data: 10
+
           },
         ],
       };
@@ -63,15 +65,16 @@ const Dashboard = () => {
         backgroundColor: ["#00A6B4", "#6800B4"],
         hoverBackgroundColor: ["#4B5000", "#35014F"],
         // data: [outOfStock, products.length - outOfStock],
+        data: [10],
       },
     ],
   };
 
     return (
        <>
-       {/* {Loading ?
+       {Loading ?
        <Loading />
-       :( */}
+       :(
         <div className="dashboard">
         <MetaData title="Dashboard" />
         <Sidebar />
@@ -83,20 +86,23 @@ const Dashboard = () => {
             <div>
               <p>
                 {/* Total Amount <br /> ${totalAmount} */}
+               total amount  100
               </p>
             </div>
             <div className="dashboardSummaryBox2">
               <Link to="/admin/products">
                 <p>Product</p>
-                {/* <p>{products && products.length}</p> */}
+                <p>{products && products.length}</p>
               </Link>
               <Link to="/admin/orders">
                 <p>Orders</p>
                 {/* <p>{orders && orders.length}</p> */}
+                10
               </Link>
               <Link to="/admin/users">
                 <p>Users</p>
                 {/* <p>{users && users.length}</p> */}
+                20
               </Link>
             </div>
           </div>
@@ -110,8 +116,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-       {/* )
-       } */}
+       )
+       }
        </>
     );
   };

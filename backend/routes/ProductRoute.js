@@ -10,11 +10,15 @@ const {
   getSingleProductRivews,
   deleteReview,
   getAllProducts,
+  getAdminProducts,
 } = require("../controller/ProductController");
 
 const router = express.Router();
 
 router.route("/products").get(getAllProducts);
+
+router.route("/admin/products").get(isAuthenticatedUser,authorizeRoles("admin"), getAdminProducts);
+
 
 router.route("/product/new").post(isAuthenticatedUser,authorizeRoles("admin"),createProduct);
 
