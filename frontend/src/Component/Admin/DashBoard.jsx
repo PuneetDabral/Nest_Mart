@@ -10,7 +10,7 @@ import MetaData from "../../more/Metadata.js";
 import Loading from "../../more/Loading";
 import { getAdminProduct } from "../../actions/ProductActions.js";
 import { getAllOrders } from "../../actions/OrderAction.js";
-// import { getAllUsers } from "../../actions/userAction.js";
+import { getAllUsers } from "../../actions/UserActions.js";
 import { Doughnut, Line } from "react-chartjs-2";
 
 const Dashboard = () => {
@@ -21,7 +21,7 @@ const Dashboard = () => {
 
   const { orders } = useSelector((state) => state.AllOrders);
 
-  // const { users } = useSelector((state) => state.allUsers);
+  const { users } = useSelector((state) => state.allUsers);
 
    let outOfStock = 0;
      
@@ -35,7 +35,7 @@ const Dashboard = () => {
     useEffect(() => {
         dispatch(getAdminProduct());
         dispatch(getAllOrders());
-        // dispatch(getAllUsers());
+        dispatch(getAllUsers());
       }, [dispatch]);    
 
     let totalAmount = 0;
@@ -101,8 +101,8 @@ const Dashboard = () => {
               </Link>
               <Link to="/admin/users">
                 <p>Users</p>
-                {/* <p>{users && users.length}</p> */}
-                20
+                <p>{users && users.length}</p>
+               
               </Link>
             </div>
           </div>

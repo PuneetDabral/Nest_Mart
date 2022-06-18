@@ -43,6 +43,7 @@ exports.getAllProducts = catchAsyncErrors(async (req,res) =>{
   const resultPerPage = 8;
  
   const productsCount = await Product.countDocuments();
+  
    
    const feature = new Features(Product.find(), req.query)
    .search()

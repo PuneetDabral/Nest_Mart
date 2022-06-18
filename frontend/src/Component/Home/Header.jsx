@@ -98,7 +98,7 @@ const Header = () => {
         >
           <strong style={{
             padding:"0px 5px"
-          }}>Email:</strong>puneetdabral2000@gmail.com
+          }}></strong>
         </span>
       </div>
     </div>
