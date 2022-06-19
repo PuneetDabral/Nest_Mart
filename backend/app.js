@@ -14,6 +14,12 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:true,limit:"50mb"}));
 app.use(fileUpload());
 
+// config
+if(process.env.NODE_ENV!=="PRODUCTION"){
+    require("dotenv").config({
+        path:"backend/config/.env"
+ })}
+
 //rotes imports
 const product = require('./routes/ProductRoute');
 const user = require('./routes/UserRoute');
@@ -28,8 +34,20 @@ app.use('/api/v1',user);
 app.use('/api/v1',order);
 app.use('/api/v1',payment);
 
+
+
+app.use(express.static(path.join(__dirname,"../frontend/build")));
+
+app.get("*",(req,res) =>{
+    res.sendFile(path.resolve(__dirname,"../frontend/build/index.html"));
+})
+
+
 //anny error accour in any where in app which is not define goes to this error handler
 //error handling 
+
+
+
 app.use(ErrorHandler);
 
 
