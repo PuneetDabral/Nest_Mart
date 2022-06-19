@@ -110,7 +110,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
       validateBeforeSave: false,
     });
 
-    return next(new ErrorHandler(err.message));
+    return next(new ErrorHandler(err.message,500));
   }
 });
 
@@ -118,8 +118,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   //crreate token hash
   //now we hash token which we have in mail and compare it to our db token
-  const resetPasswordToken = crypto.crypto
-    .createHash("sha256")
+  const resetPasswordToken = crypto.createHash("sha256")
     .update(req.params.token)
     .digest("hex");
 
